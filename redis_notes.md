@@ -148,6 +148,30 @@ Generate password:
 ACL GENPASS
 
 ------------------------------------------------------------------------
+publish and subscriber like publish channel_name "msg" and subscriber channel_name
+patter based psubscribed channel_name(* means any)
+to count the subsribe use pubsub numsub channel_name
+persistence data-config_settings(sudo nano redis.conf)-snapshotting-save"" save 3600 1 300 100 60 10000(config get save)--also can change the port number if needed
+flush_all
+keys *
+to make it master server we need to make the bind as commented and procted as no and copy the password from the .config also in the replica server make the replica and uncomment and give rhe ip of master and port_no
+to get the info of the server use (info replication)
+to convert back salve to master use (replicaof no one) and back to slave (replicaof ip port)
+sentinel(automatically promort salves to master when master failover)
+redis cluster->redis is scaled horizontally using development toplogy and it provides automatically data is sharding
+it spilits your dataset aming muktiple set and it works when the subset nodes are not able to communicate with eachother
+it uses a hashslot(16384 slots in cluster)
+atleast 3 masters are needed to make a cluster
+cluster_seeting should be copied from the official docs
+check the cluster nodes by (redis-cli -p which_port cluster nodes and (| grep master))
+we can automatically create it by command create-cluster | (start and run and delete)
+redis-transcation->excutes a group of command(multi,exec,discard,watch)
+man see first we need to enter multi next prompt will  have a TX with it means wating for the queue and enter your command like incrby or decr by then atlast enter exec to complete query and when we want to come out enter discard
+when we want to close see like there might be a failure chance in account we can watch it man by (watch account:saikumar) if execution fails it will return nil or runs the query
+STREAM:->append only data structre eg:pub-sub
+cache->redis.set("key","value") redis.get("key")
+ACL-> ACL list,acl whoami,acl getuser default,auth username passwors,acl setuser sai(name) on >saikumar(password) -allcommands allkeys( nocommands -set +get),acl deluser sai(name),acl genpass(password generate)
+redis-insight: if using in local like docker then host is localhost
 
 ## 11. Redis Insight
 
