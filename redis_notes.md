@@ -193,6 +193,9 @@ ACL GENPASS
 
 >ACL-> ACL list,acl whoami,acl getuser default,auth username passwors,acl setuser sai(name) on >saikumar(password) -allcommands allkeys( nocommands -set +get),acl deluser sai(name),acl genpass(password generate)
 
+>eset,mset,mget,ex,px,perists,exprie,type,exists,eval,incrby
+
+
 >redis-insight: if using in local like docker then host is localhost
 
 
