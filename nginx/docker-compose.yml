@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  django_1:
+    build: ./django_app
+    expose:
+      - "8000"
+
+  django_2:
+    build: ./django_app
+    expose:
+      - "8000"
+
+  django_3:
+    build: ./django_app
+    expose:
+      - "8000"
+  api_1:
+    build: ./api_app
+    expose:
+      - "8000"
+  api_2:
+    build: ./api_app
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - django_1
+      - django_2
+      - django_3
+      - api_1
+      - api_2
