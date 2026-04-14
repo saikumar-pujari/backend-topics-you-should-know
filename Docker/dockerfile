@@ -1,10 +1,16 @@
 ARGS Python-version=3.12-slim
 FROM python:${Python-version}
 WORKDIR /app
+RUN adduser -D myuser
 COPY requirements.txt .
 RUN pip install  -r requirements.txt
 COPY ./test11 .
-EXPOSE 8000
+RUN chown -R myuser:myuser /app #now myuser can acces the /app files as a normal user only without root acces you can see any files
+USER myuser
+HEALTHCHECK --interval=10s --timeout=3s \
+CMD curl --fail http://localhost:8000 || exit 1
+#EXPOSE 8000 #use expose only when we want to comunicate between only in the containers or else if default port it wont run in the browser
+PORT 8000
 ENTRYPOINT [ "python" ]
 ENV DEBUG=True
 CMD [ "manage.py", "runserver_plus", "0.0.0.0:8000" ]
