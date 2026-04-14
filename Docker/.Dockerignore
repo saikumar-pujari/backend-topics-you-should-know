@@ -1,0 +1,11 @@
+.git
+env/
+database/
+API/
+fastapi/
+notes.txt
+fresh_notes.md
+*.pdf
+.gitignore
+dq.sqlite3
+*.env*
