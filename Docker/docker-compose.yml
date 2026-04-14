@@ -1,4 +1,12 @@
 services:
+  web:
+    build:.
+    env_file:
+    - .env
+    ports:
+    # - "80:80"
+    - "${PORT}:80" #it will the PORT value from the .env file
+
   nginx:
     # image: nginx:latest
     container_name: compose_yml_nginx
