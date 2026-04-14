@@ -1,0 +1,19 @@
+services:
+  nginx:
+    # image: nginx:latest
+    container_name: compose_yml_nginx
+    build:
+      context: ./nginx/
+    # Copy: 
+    #   - ./html/:/usr/share/nginx/html/ 
+    # build: 
+    #   context: .
+    expose:
+      - 8000
+    # ports:
+    #   - "80:80"
+    volumes:
+      # - ./nginx/html/main/:/usr/share/nginx/html/
+      - ./nginx/html/:/usr/share/nginx/html/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+#usr/src/app is for apps 
