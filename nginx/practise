@@ -1,0 +1,62 @@
+YAML:
+    version: "3.9"
+    services:
+      django_v1:
+        build: .
+        container_name: django_v1
+        expose:
+          - "8000"
+    
+      django_v2:
+        build: .
+        container_name: django_v2
+        expose:
+          - "8000"
+    
+      nginx:
+        image: nginx:latest
+        ports:
+          - "80:80"
+        volumes:
+          - ./nginx.conf:/etc/nginx/nginx.conf
+        depends_on:
+          - django_v1
+          - django_v2
+
+DOCKER CLI: docker compose up -d --scale django_v1=3 --scale django_v2=2
+[
+  [django_v1_1, django_v1_2, django_v1_3]
+  [django_v2_1, django_v2_2]
+]
+
+IPS:
+  django_v1 → multiple IPs (all containers)
+  django_v2 → multiple IPs
+
+.CONF:
+    resolver 127.0.0.11;
+    # Traffic split
+    split_clients "${remote_addr}" $backend {
+        80% django_v1;
+        20% django_v2;
+    }
+    
+    # Upstreams
+    upstream django_v1 {
+        server django_v1:8000;
+    }
+    
+    upstream django_v2 {
+        server django_v2:8000;
+    }
+    
+    server {
+        listen 80;
+    
+        location / {
+            proxy_pass http://$backend;
+    
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+    }
