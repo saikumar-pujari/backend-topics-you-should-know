@@ -1,5 +1,5 @@
 #!/bin/bash
-
+######### to run the code use bash and <filename> in VSCODE(bash commands.sh)
 # VARIABLES
 name="SKIPPER"
 echo "Name: $name"
