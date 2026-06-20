@@ -45,6 +45,26 @@ SELECT generate_series(1, 100);
 -- GROUP BY department
 -- HAVING COUNT(*) > 5;           -- filter after grouping
 
+-- PostgreSQL Logical Execution Order
+    -- 1. WITH (CTEs)
+    -- 2. FROM
+    -- 3. JOIN
+    -- 4. WHERE
+    -- 5. GROUP BY
+    -- 6. Aggregate Functions (SUM, AVG, COUNT...)
+    -- 7. HAVING
+    -- 8. WINDOW Functions (OVER())
+    -- 9. SELECT
+    -- 10. DISTINCT
+    -- 11. UNION / INTERSECT / EXCEPT
+    -- 12. ORDER BY
+    -- 13. LIMIT / OFFSET / FETCH
+
+-- IN THE CTE for the postgres when we want to use recurive CTE we need to mention RECURSIVE also.
+-- SUB Query vs CTE always depends on the choice of data we need but we can reuse the CTE not the SUB Query.
+
+
+
 
 -- ============================================
 -- DJANGO COMMANDS (reference only, NOT SQL)
