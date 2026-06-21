@@ -1,0 +1,50 @@
+{
+  "shell_basics": {
+    "show_all_databases": "show dbs",
+    "switch_or_create_database": "use sales",
+    "hierarchy": "database -> collections (tables) -> documents (rows) -> fields (data)"
+  },
+  "insert": {
+    "insert_one": {
+      "command": "db.targets.insertOne({ \"name\": \"cheku\", \"price\": 1000 })",
+      "returns": "acknowledged + insertedId (ObjectId)"
+    },
+    "insert_many": {
+      "command": "db.collections.insertMany([{}, {}, {}, {}, {}])"
+    }
+  },
+  "read": {
+    "find_all": "db.targets.find()",
+    "find_with_filter": "db.collections.find({ \"name\": \"skipper\" })"
+  },
+  "update": {
+    "update_one": {
+      "command": "db.collection.updateOne({ <where> }, { $set: { <what> } })",
+      "notes": "Use $set for normal field updates. For array fields, use $push to add an item and $pull to remove an item instead of $set."
+    },
+    "push_multiple_values": {
+      "command": "db.collection.updateOne({ <where> }, { $push: { <arrayField>: { $each: [\"val1\", \"val2\", \"val3\"] } } })",
+      "notes": "Use $each inside $push when adding multiple values to an array at once."
+    },
+    "upsert": {
+      "command": "db.collection.updateOne({ <where> }, { $set: { <what> } }, { upsert: true })",
+      "notes": "If no matching document is found, upsert:true will insert a new document instead."
+    }
+  },
+  "query_operators": {
+    "comparison": ["$eq", "$ne", "$gt", "$gte", "$lt", "$lte"],
+    "in_nin": ["$in", "$nin"],
+    "logical": ["$and", "$or"],
+    "existence_and_type": {
+      "exists": "{ field: { $exists: true } }",
+      "type": "{ field: { $type: \"int\" } }"
+    },
+    "all": "$all"
+  },
+  "aggregation_helpers": {
+    "count": "db.collection.find({...}).count()",
+    "sort": "db.collection.find().sort({ field: 1 })  // 1 = asc, -1 = desc",
+    "limit": "db.collection.find().limit(n)",
+    "skip": "db.collection.find().skip(n)"
+  }
+}
