@@ -11,6 +11,22 @@
 -- \r                      reset/clear current query buffer
 -- \q                      quit psql
 
+-- ============================================================
+-- 3-Level Architecture
+-- ============================================================
+-- 1) Physical 
+-- 2) Logical
+-- 3) Views ( create or replace view as ())
+
+-- =====================================================
+-- Sub Query is like having another table and taking data from it
+-- CTE is like Sub Query but can be reused many times
+-- Views store only query no data similar to CTE
+-- CTAS stores Data also with query so faster than Views
+-- temporwary tables are stored only for that spefic session only new session leads to deletion of the table just use # before the name (INTO #<table_name>).similar to CTAS
+
+-- =============================================================
+-- index in postgress does not differneate as cluster or non-cluster by default its a non-cluster
 
 -- ---------- DDL: CREATE USER & GRANT PRIVILEGES ----------
 CREATE USER sai WITH PASSWORD 'mypassword';
