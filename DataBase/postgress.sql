@@ -79,9 +79,21 @@ SELECT generate_series(1, 100);
 -- IN THE CTE for the postgres when we want to use recurive CTE we need to mention RECURSIVE also.
 -- SUB Query vs CTE always depends on the choice of data we need but we can reuse the CTE not the SUB Query.
 
+-- ===========================================
+--       INDEXS
+-- ===========================================
+-- In postgresql we normal use index simailr to the SQL index additionally we also use Materaial Index which stores Data in the disk rather than in memory!
 
+CREATE MATERIALIZED VIEW student_subject_mv AS
+SELECT
+    s.name,
+    sub.course
+FROM studentlist s
+JOIN subject sub
+ON s.id=sub.student_id;
 
-
+    
+    
 -- ============================================
 -- DJANGO COMMANDS (reference only, NOT SQL)
 -- Use these from the terminal, not inside psql
