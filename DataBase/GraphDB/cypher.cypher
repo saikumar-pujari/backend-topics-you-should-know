@@ -1,28 +1,3 @@
-// I  LEARENT THIS SHIT FOR 10HR BUT I WILL TEACH YOU THIS IN 30MIN
-
-
-//1. A graph DB is two things stacked together
-//When people say "graph database," they really mean two layers:
-//Underlying storage — how the data physically sits on disk. Some graph DBs store data in a native graph format (nodes and relationships are stored directly, pointing at each other). Others bolt a graph model on top of a regular database. Native storage is usually faster for graph stuff.
-//Processing engine — the part that actually traverses the graph (walks from node to node following relationships). The gold standard is "index-free adjacency," which means each node directly knows its neighbors instead of looking them up in a giant index every time.
-//So: storage = where data lives, engine = how it moves through connections.
-
-//2. The power of graph: Performance, Flexibility, Agility
-//Performance — this is the big one, and it connects directly to your JOIN point (more below). Traversing relationships stays fast even as data grows, because you're just following pointers from one node to the next.
-//Flexibility — no rigid schema. You can add new node types, new relationship types, new properties on the fly without rebuilding tables.
-//Agility — because of that flexibility, your model can evolve with your app. Requirements change? Just add the new relationship. No painful migrations.
-
-//3 & 4. SQL vs NoSQL, and why JOINs are the headache
-//Here's the heart of it, and your note nailed the intuition.
-//In a relational (SQL) database, relationships aren't really stored — they're computed at query time using JOINs. If you want "friends of friends," the database has to match foreign keys across tables, row by row.
-//For small data, fine. But with big data, every JOIN forces the DB to scan and match huge tables. Stack a few JOINs together (friends of friends of friends) and the cost explodes — it grows roughly multiplicatively. That's the overhead and headache you wrote about.
-//A graph database flips this. The relationship is stored as a first-class thing, not computed. So "friends of friends" is just: stand on a node, walk the FRIEND edges out, then walk again. The cost depends on how many connections you actually touch, not on how big the whole database is.
-//The slogan: in SQL, relationships cost you at read time. In a graph, you pay once at write time and traversals stay cheap forever.
-//And your line "SQL vs NoSQL only differs by the relationship" — that's a clean way to think about it. The data itself isn't that different; what changes is how relationships are treated. SQL = join later, graph = store the connection directly.
-
-//5. The building blocks: nodes, labels, properties, relationships
-//This is the actual data model, and you listed all the pieces. Let me show it visually so it clicks.
-
 
 CREATE 
 (russell:PLAYER{name:"Russell Westbrook", age: 33, number: 0, height: 1.91, weight: 91}),
