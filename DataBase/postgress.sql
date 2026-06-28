@@ -98,6 +98,51 @@ REFRESH MATERIALIZED VIEW student_subject_mv;
 
 -- To add a comment for the index 
 comment on index student_subject_mv is 'This Table shows the details for the course and students list'
+
+
+--==============================================
+--               USER AND PERMISSIONS
+--==============================================
+create role intern login password 'saikumar';
+create user sai with password 'saikumar';
+ALTER USER sai WITH SUPERUSER;
+ALTER USER sai WITH NOSUPERUSER;
+ALTER USER sai WITH PASSWORD 'newpassword';
+ALTER ROLE sai RENAME TO saikumar;
+
+DROP USER sai;
+set role developer; --switch to dev role
+reset role; --back to original role
+
+GRANT senior_dev TO JR_dev; --jr inherit all permission from senior
+
+--\du           list all users and their roles
+GRANT CONNECT ON DATABASE <DB_name> TO developer; -- to connect to a DB ONLY
+GRANT CREATE ON DATABASE <DB_name> TO developer; --allows to create schemna in DB ONLY
+GRANT TEMP ON DATABASE <DB_name> TO developer; --allows dev to create temp tables only
+GRANT CREATE,USAGE ON SCHEMA public TO sai; --allows to create,select in a new role for Tables
+GRANT SELECT ON studentlist TO developer; --dev can only read data from table studentlisy
+GRANT SELECT,INSERT,REFERENCES  ON studentlist TO developer; --read and write
+GRANT SELECT,INSERT,UPDATE ON studentlist TO developer; --read ,write amd update
+GRANT ALL ON studentlist TO developer; --all permissions in the table
+GRANT ALL ON ALL TABLES IN SCHEMA public TO sai; --grants permission to all existing DB for the user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO sai;
+
+GRANT SELECT(name) ON employee TO developer; -- can only read the name column
+GRANT SELECT(age) ON employee TO developer;-- can only read the age column
+GRANT SELECT ON studentlist, subject TO sai; --multiple DB connections
+GRANT INSERT ON studentlist TO writer;
+
+REVOKE SELECT ON studentlist FROM sai; --removes the select privilages
+REVOKE ALL ON studentlist FROM sai; --removes all privilages
+
+--=================================================
+--      SEARCH IN DB
+--=================================================
+
+
+
+
 -- ============================================
 -- DJANGO COMMANDS (reference only, NOT SQL)
 -- Use these from the terminal, not inside psql
