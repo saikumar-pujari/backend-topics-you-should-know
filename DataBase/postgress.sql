@@ -10,7 +10,8 @@
 -- \d <table_name>         describe table (show columns)
 -- \r                      reset/clear current query buffer
 -- \q                      quit psql
-
+-- \di                     list all index
+-- \di+ <index_name>       gives a description about that index
 -- ============================================================
 -- 3-Level Architecture
 -- ============================================================
@@ -92,8 +93,11 @@ FROM studentlist s
 JOIN subject sub
 ON s.id=sub.student_id;
 
-    
-    
+-- We also need to refersh this table every time we add data in other table
+REFRESH MATERIALIZED VIEW student_subject_mv;
+
+-- To add a comment for the index 
+comment on index student_subject_mv is 'This Table shows the details for the course and students list'
 -- ============================================
 -- DJANGO COMMANDS (reference only, NOT SQL)
 -- Use these from the terminal, not inside psql
