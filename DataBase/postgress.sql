@@ -13,6 +13,7 @@
 -- \di                     list all index
 -- \di+ <index_name>       gives a description about that index
 --\dx                      for extensions
+--\x on                     extentend display is on;
 -- ============================================================
 -- 3-Level Architecture
 -- ============================================================
